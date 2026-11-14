@@ -5,78 +5,101 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cyber City Generator</title>
 <meta name="description" content="Procedural cyberpunk skyscrapers and entire neon cities for Blender. One Geometry Nodes modifier per tower, or a whole city with one command.">
-<meta property="og:title" content="Cyber City Generator">
-<meta property="og:description" content="Procedural cyberpunk skyscrapers and entire neon cities for Blender.">
-<meta property="og:image" content="media/cover.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #07090d;
-    --panel: #0d1118;
-    --line: #1c2430;
-    --text: #e8edf5;
-    --muted: #93a0b4;
-    --cyan: #19e3ff;
-    --magenta: #ff2e88;
-    --amber: #ffb547;
-    --radius: 10px;
+    --page: #ffffff;
+    --ink: #0b0c0f;
+    --card: #050608;
+    --card-text: #f2f4f8;
+    --card-muted: #8d95a3;
+    --line: #e6e8ec;
+    --muted: #5b6270;
+    --radius: 18px;
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; background: var(--bg); color: var(--text); }
-  body { font: 16px/1.6 "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif; }
-  .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px 48px; }
-  img, video { display: block; width: 100%; height: auto; border-radius: var(--radius); }
-  .hero { position: relative; margin-top: 16px; }
-  .hero img { border: 1px solid var(--line); }
-  .kicker { color: var(--cyan); letter-spacing: .22em; font-size: 12px; font-weight: 600; text-transform: uppercase; }
-  h1 { font-size: clamp(30px, 6vw, 52px); line-height: 1.05; margin: 22px 0 8px; letter-spacing: .01em; }
-  h2 { font-size: clamp(22px, 3.6vw, 30px); margin: 0 0 6px; }
-  p { margin: 0 0 14px; color: var(--muted); }
-  .lead { font-size: 18px; color: var(--text); max-width: 720px; }
-  .cta { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 8px; }
-  .btn { display: inline-block; padding: 11px 18px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; }
-  .btn-primary { background: var(--cyan); color: #031015; }
-  .btn-ghost { border: 1px solid var(--line); color: var(--text); }
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
-  .chips li { border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: 13px; color: var(--muted); }
-  section { margin-top: 56px; }
-  .eyebrow { color: var(--cyan); font-family: Consolas, "SFMono-Regular", Menlo, monospace; font-size: 13px; letter-spacing: .12em; }
-  .media { margin-top: 16px; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #000; }
-  .media img, .media video { border-radius: 0; }
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 36px; }
-  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
-  .stat b { display: block; font-size: 28px; line-height: 1.1; color: var(--text); }
-  .stat span { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
-  .grid2 img { border: 1px solid var(--line); }
-  .families { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
-  .fam { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; }
-  .fam b { display: block; color: var(--text); }
-  .fam span { font-size: 14px; color: var(--muted); }
-  ul.list { margin: 8px 0 0; padding-left: 20px; color: var(--muted); }
-  ul.list li { margin: 4px 0; }
-  ul.list b { color: var(--text); }
-  pre { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto;
-        color: var(--text); font: 13px/1.5 Consolas, "SFMono-Regular", Menlo, monospace; }
-  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .foot { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
-  a { color: var(--cyan); }
-  @media (max-width: 640px) {
-    .stats { grid-template-columns: repeat(2, 1fr); }
-    .grid2, .split { grid-template-columns: 1fr; }
-    .families { grid-template-columns: 1fr 1fr; }
+  html, body { margin: 0; background: var(--page); color: var(--ink); }
+  body { font: 16px/1.55 Inter, "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 0 40px; }
+  img, video, iframe { display: block; width: 100%; }
+
+  /* hero */
+  .hero { position: relative; border-radius: var(--radius); overflow: hidden; background: var(--card); color: var(--card-text);
+          aspect-ratio: 16 / 10; display: flex; align-items: flex-start; justify-content: center; text-align: center; }
+  .hero img { position: absolute; inset: 0; height: 100%; object-fit: cover; }
+  .hero::after { content: ""; position: absolute; inset: 0;
+                 background: linear-gradient(180deg, rgba(5,6,8,.92) 0%, rgba(5,6,8,.55) 34%, rgba(5,6,8,0) 62%); }
+  .hero .txt { position: relative; z-index: 1; padding: 7% 8% 0; }
+  .hero h1 { font-size: clamp(30px, 5.6vw, 54px); line-height: 1.06; letter-spacing: -.02em; margin: 0 0 14px; font-weight: 700; }
+  .hero p { color: #c3c9d4; font-size: clamp(14px, 1.7vw, 17px); max-width: 560px; margin: 0 auto; }
+
+  .video { margin-top: 14px; border-radius: var(--radius); overflow: hidden; background: var(--card); }
+  .video .frame { position: relative; aspect-ratio: 16 / 9; }
+  .video .frame > * { position: absolute; inset: 0; height: 100%; border: 0; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 14px; border: 1px solid var(--line);
+           border-radius: var(--radius); overflow: hidden; }
+  .stat { padding: 18px 20px; border-right: 1px solid var(--line); }
+  .stat:last-child { border-right: 0; }
+  .stat b { display: block; font-size: 30px; line-height: 1.1; font-weight: 700; letter-spacing: -.02em; }
+  .stat span { font-size: 13px; color: var(--muted); }
+
+  h2.section { font-size: clamp(30px, 4.6vw, 44px); letter-spacing: -.02em; font-weight: 600; margin: 64px 0 18px; }
+
+  /* bento */
+  .bento { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .card { background: var(--card); color: var(--card-text); border-radius: var(--radius); overflow: hidden;
+          display: flex; flex-direction: column; }
+  .card.full { grid-column: 1 / -1; }
+  .card .copy { padding: 24px 26px 18px; font-size: 15px; color: var(--card-muted); }
+  .card.full .copy { max-width: 620px; }
+  .card .copy b { color: var(--card-text); font-weight: 600; }
+  .card .media { margin-top: auto; }
+
+  /* spec table */
+  .spec { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .spec th, .spec td { text-align: left; vertical-align: top; padding: 18px 0; border-top: 1px solid var(--line); }
+  .spec th { width: 30%; font-weight: 600; padding-right: 24px; }
+  .spec td p { margin: 0 0 8px; color: var(--muted); }
+  .spec ul { margin: 0; padding-left: 18px; color: var(--ink); columns: 2; column-gap: 28px; }
+  .spec li { margin: 2px 0; break-inside: avoid; }
+
+  .included { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .box { border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; }
+  .box h3 { margin: 0 0 8px; font-size: 18px; font-weight: 600; }
+  .box p { margin: 0; color: var(--muted); font-size: 15px; }
+  code { font: 13.5px/1.4 "SFMono-Regular", Consolas, Menlo, monospace; background: #f3f4f6; padding: 1px 6px; border-radius: 6px; }
+  .note { margin-top: 40px; font-size: 13px; color: var(--muted); }
+
+  @media (max-width: 700px) {
+    .bento, .included { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat:nth-child(2) { border-right: 0; }
+    .stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+    .spec th { width: 36%; }
+    .spec ul { columns: 1; }
+    .hero { aspect-ratio: 4 / 5; }
   }
 </style>
 </head>
 <body>
 <main class="wrap">
 
-  <div class="hero">
-    <img width="2000" height="1000" src="media/cover.webp" alt="A lineup of procedural cyberpunk towers, mid-rises and shophouses in hazy daylight">
-  </div>
+  <section class="hero">
+    <img src="media/hero.webp" width="1920" height="1080" alt="A lineup of procedural cyberpunk towers, mid-rises and shophouses in hazy daylight">
+    <div class="txt">
+      <h1>Cyberpunk cities<br>in a single modifier</h1>
+      <p>Cyber City Generator builds detailed neon skyscrapers live from one Geometry Nodes modifier, then grows them into entire cities with streets, shops and signage.</p>
+    </div>
+  </section>
 
-  <div class="kicker" style="margin-top:22px">Blender · Geometry Nodes · Procedural</div>
-  <h1>Cyber City Generator</h1>
-  <p class="lead">Procedural cyberpunk skyscrapers and entire neon cities. Use one Geometry Nodes modifier per tower, or build a whole city with one command.</p>
+  <div class="video">
+    <div class="frame" id="trailer">
+      <video width="1920" height="1080" src="media/trailer.mp4" poster="media/cover_night.webp" controls playsinline preload="metadata"></video>
+    </div>
+  </div>
 
   <div class="stats">
     <div class="stat"><b>6</b><span>Building families</span></div>
@@ -85,98 +108,90 @@
     <div class="stat"><b>4+</b><span>City layouts</span></div>
   </div>
 
-  <section>
-    <div class="eyebrow">TRAILER</div>
-    <h2>72 seconds, from one tower to a whole city</h2>
-    <div class="media">
-      <video width="1920" height="1080" src="media/trailer.mp4" poster="media/cover_night.webp" controls playsinline preload="metadata"></video>
+  <h2 class="section">Features</h2>
+  <div class="bento">
+
+    <div class="card full">
+      <div class="copy"><b>One modifier, one tower.</b> Add the BT Tower Generator modifier to any mesh and a complete tower builds itself live: mass, setbacks and crown, facade bays, technical floors and roof plant. Every input is a regular modifier field, so you can drag it, keyframe it or drive it.</div>
+      <div class="media"><img src="media/generate.gif" width="720" height="360" alt="A tower being generated step by step while the modifier values change" loading="lazy"></div>
     </div>
-  </section>
 
-  <section>
-    <div class="eyebrow">01 · GENERATE</div>
-    <h2>One modifier, one tower</h2>
-    <p>Add the <b>BT Tower Generator</b> modifier to any mesh and a complete tower builds itself live. It includes the mass, setbacks and crown, facade bays and technical floors, glass, metal and concrete with grime, LED screens, neon pictogram signs, lit rooms, roof plant and street-level shops. Every input is a normal modifier field, so you can drag it, keyframe it or drive it.</p>
-    <div class="media"><img width="720" height="360" src="media/generate.gif" alt="A tower being generated step by step while the modifier panel values change" loading="lazy"></div>
-  </section>
-
-  <section>
-    <div class="eyebrow">02 · VARIATIONS</div>
-    <h2>Endless variations, fully deterministic</h2>
-    <p>There are separate seeds for the mass, facade, ads and lights. Keep a silhouette you like and re-roll only its lights or its screens. The same inputs always give the same building.</p>
-    <div class="media"><img width="720" height="360" src="media/variations.gif" alt="Seed shuffle: a new tower every few frames" loading="lazy"></div>
-  </section>
-
-  <section>
-    <div class="eyebrow">03 · FAMILIES</div>
-    <h2>Six building families</h2>
-    <div class="families">
-      <div class="fam"><b>Belt</b><span>LED belts and an ad wall</span></div>
-      <div class="fam"><b>Terrace</b><span>Cantilevered slabs with balconies</span></div>
-      <div class="fam"><b>Notched</b><span>Recessed corners and vertical screens</span></div>
-      <div class="fam"><b>Blocks</b><span>Towers rising from a shared podium</span></div>
-      <div class="fam"><b>Tech</b><span>Cylinders, polygon tiers and spires</span></div>
-      <div class="fam"><b>Shophouse</b><span>Low-rise street blocks</span></div>
+    <div class="card">
+      <div class="copy"><b>Endless variations.</b> Separate seeds for the mass, facade, ads and lights. Keep a silhouette you like and re-roll only its lights.</div>
+      <div class="media"><img src="media/variations.gif" width="720" height="360" alt="Seed shuffle" loading="lazy"></div>
     </div>
-    <div class="media"><img width="720" height="360" src="media/families.gif" alt="Six building families turning on turntables" loading="lazy"></div>
-  </section>
 
-  <section>
-    <div class="eyebrow">04 · DAY / NIGHT</div>
-    <h2>Harsh sun and haze, or neon after dark</h2>
-    <p>Under a hazy afternoon sun the neon keeps burning. After dark the rooms light up floor by floor.</p>
-    <div class="media"><img width="720" height="360" src="media/day_night.gif" alt="A divider sweeps across the same tower from night to day" loading="lazy"></div>
-  </section>
-
-  <section>
-    <div class="eyebrow">05 · CITIES</div>
-    <h2>Whole cities with one command</h2>
-    <p>The city builder places hundreds of towers on a street grid. Pick one of four layouts (grid, downtown, strip, megablock) or set your own blocks, block size and street width. It adds sidewalks, lamps, neon shop totems, sign gantries with pictogram direction signs, traffic lights, cables, an elevated rail, skybridges, a reflective bay, a lit far city and searchlights. Every building stays a live modifier.</p>
-    <div class="media"><img width="720" height="360" src="media/layouts.gif" alt="City layout plan drawn as an infographic, then the rendered aerial" loading="lazy"></div>
-    <div class="media"><img width="720" height="302" src="media/city.gif" alt="Flythrough of the generated city" loading="lazy"></div>
-    <pre>blender -b --python build_city.py -- --layout downtown --seed 21 --save Downtown.blend</pre>
-  </section>
-
-  <section>
-    <div class="eyebrow">GALLERY</div>
-    <div class="grid2">
-      <img width="1920" height="960" src="media/modifier_panel.webp" alt="The Geometry Nodes modifier panel next to a tower" loading="lazy">
-      <img width="1920" height="960" src="media/build_materials.webp" alt="Material pass sweeping up a clay tower" loading="lazy">
-      <img width="1920" height="960" src="media/families.webp" alt="Six families side by side" loading="lazy">
-      <img width="1920" height="960" src="media/kit_daylight.webp" alt="Kit of towers, mid-rises and shophouses in daylight" loading="lazy">
-      <img width="1920" height="960" src="media/layout_plan.webp" alt="Downtown layout plan" loading="lazy">
-      <img width="1608" height="804" src="media/street_daylight.webp" alt="Street with shops and sign gantry in daylight" loading="lazy">
-      <img width="1608" height="804" src="media/hero_tower_night.webp" alt="Hero tower with drones at night" loading="lazy">
-      <img width="2000" height="1000" src="media/cover_night.webp" alt="City aerial at night" loading="lazy">
+    <div class="card">
+      <div class="copy"><b>Six building families.</b> Belt, Terrace, Notched, Blocks, Tech and Shophouse each have their own silhouette and facade system.</div>
+      <div class="media"><img src="media/families.webp" width="1920" height="960" alt="Six building families side by side" loading="lazy"></div>
     </div>
-  </section>
 
-  <section class="split">
-    <div>
-      <div class="eyebrow">INCLUDED</div>
-      <h2>What you get</h2>
-      <ul class="list">
-        <li><b>CyberCityGenerator.blend:</b> the generator with a demo tower in a night studio. The modifier is also an asset in <i>Add Modifier &gt; Cyber City</i>, and the textures are embedded.</li>
-        <li><b>CyberCity_Demo.blend:</b> a prebuilt city of about 230 buildings, ready to render.</li>
-        <li><b>City builder and full Python source</b> (GPL-3.0).</li>
-        <li><b>CC0 textures:</b> ambientCG PBR sets and 13 animated pictogram ad loops.</li>
-        <li><b>README:</b> every input explained, with rendering tips.</li>
-      </ul>
+    <div class="card full">
+      <div class="copy"><b>Day and night.</b> Under a hazy afternoon sun the neon keeps burning. After dark the rooms light up floor by floor, with fake interior depth and curtains.</div>
+      <div class="media"><img src="media/day_night.gif" width="720" height="360" alt="A divider sweeps across the same tower from night to day" loading="lazy"></div>
     </div>
-    <div>
-      <div class="eyebrow">REQUIREMENTS</div>
-      <h2>Runs on</h2>
-      <ul class="list">
-        <li>Blender 5.2 or newer (tested on 5.2 LTS).</li>
-        <li>Cycles (recommended) or Eevee.</li>
-        <li>A full-city aerial at 1080p fits in an 8 GB GPU with the towers' LOD Distance at about 400 m.</li>
-        <li>Signs use pictograms from the system symbol font, so there is no lettering anywhere.</li>
-      </ul>
+
+    <div class="card">
+      <div class="copy"><b>Real materials.</b> CC0 PBR sets are box-projected in metres. Each panel has its own tone, and grime streaks down from every joint.</div>
+      <div class="media"><img src="media/build_materials.webp" width="1920" height="960" alt="Material pass sweeping up a clay tower" loading="lazy"></div>
     </div>
-  </section>
 
+    <div class="card">
+      <div class="copy"><b>Screens and neon, never text.</b> LED screens play 13 animated pictogram ads, and signs use pictograms only. There is no lettering and there are no real brands.</div>
+      <div class="media"><img src="media/hero_tower_night.webp" width="1608" height="804" alt="Hero tower with screens and drones at night" loading="lazy"></div>
+    </div>
 
-  <div class="foot">Scripts: GPL-3.0-or-later · Textures: CC0 · Your renders are yours to use commercially.</div>
+    <div class="card full">
+      <div class="copy"><b>Whole cities, one command.</b> The city builder places hundreds of towers on a street grid. Choose a layout (grid, downtown, strip or megablock) or set your own blocks, block size and street width.</div>
+      <div class="media"><img src="media/layouts.gif" width="720" height="360" alt="City layout plan, then the rendered aerial" loading="lazy"></div>
+    </div>
+
+    <div class="card">
+      <div class="copy"><b>Street-level life.</b> The builder adds 16 shop types, neon totems, sign gantries with pictogram direction signs, traffic lights, cables and bollards.</div>
+      <div class="media"><img src="media/street_daylight.webp" width="1608" height="804" alt="Street with shops and a sign gantry in daylight" loading="lazy"></div>
+    </div>
+
+    <div class="card">
+      <div class="copy"><b>A kit to start from.</b> Towers, mid-rises and shophouses: 30 buildings ready to place by hand.</div>
+      <div class="media"><img src="media/kit_daylight.webp" width="1920" height="960" alt="Kit of towers, mid-rises and shophouses in daylight" loading="lazy"></div>
+    </div>
+
+    <div class="card full">
+      <div class="copy"><b>Built for big scenes.</b> Small parts drop beyond a distance from your camera, so a full-city aerial at 1080p fits in an 8 GB GPU. Every building stays a live modifier.</div>
+      <div class="media"><img src="media/city.gif" width="720" height="302" alt="Flythrough of the generated city" loading="lazy"></div>
+    </div>
+
+  </div>
+
+  <h2 class="section">Technical specification</h2>
+  <table class="spec">
+    <tr><th>Building</th><td><p>Six families with their own masses, crowns and facade systems.</p>
+      <ul><li>Family, Seed</li><li>Floors (12 to 180)</li><li>Width, Depth</li><li>Setback, Asymmetry</li></ul></td></tr>
+    <tr><th>Facade</th><td><p>Vertical fins, horizontal bands and industrial panels, with frames, recesses and technical floors.</p>
+      <ul><li>Facade Seed</li><li>Floor Height</li><li>Bay Width</li><li>Tech Detail, Weathering</li></ul></td></tr>
+    <tr><th>Ads and signs</th><td><p>LED belts, framed screens, blade signs, roof boards and neon, using pictograms only.</p>
+      <ul><li>Ad Seed</li><li>Ads, Signs (density)</li><li>Screens on/off</li><li>Load your own images</li></ul></td></tr>
+    <tr><th>Lights</th><td><p>Lit rooms with interior depth and curtains, and neon in five colours.</p>
+      <ul><li>Light Seed</li><li>Lit Windows</li><li>Neon on/off</li></ul></td></tr>
+    <tr><th>Animation</th><td><p>Moving parts on the scene clock.</p>
+      <ul><li>Delivery drones</li><li>Sky traffic</li><li>Panoramic elevator</li><li>Turning ad tower</li><li>Crown ticker</li></ul></td></tr>
+    <tr><th>City builder</th><td><p>One command builds a whole city around the generator.</p>
+      <ul><li>Grid, downtown, strip, megablock</li><li>Custom blocks and streets</li><li>Lamps, totems, gantries</li><li>Rail, skybridges, bay</li></ul></td></tr>
+    <tr><th>Performance</th><td><p>Small parts drop beyond a set distance from a camera object.</p>
+      <ul><li>LOD Camera</li><li>LOD Distance</li><li>Realize Instances</li></ul></td></tr>
+    <tr><th>Materials</th><td><p>ambientCG PBR sets (CC0), embedded in the .blend files and box-projected in metres.</p></td></tr>
+    <tr><th>Compatibility</th><td><p>Blender 5.2 or newer (tested on 5.2 LTS). Renders with Cycles and Eevee.</p></td></tr>
+  </table>
+
+  <h2 class="section">What's included</h2>
+  <div class="included">
+    <div class="box"><h3>Generator</h3><p><code>CyberCityGenerator.blend</code>: the modifier with a demo tower in a night studio. It is also an asset in <i>Add Modifier &gt; Cyber City</i>.</p></div>
+    <div class="box"><h3>Demo city</h3><p><code>CyberCity_Demo.blend</code>: about 230 buildings, ready to render.</p></div>
+    <div class="box"><h3>City builder</h3><p><code>build_city.py</code> and the full Python source (GPL-3.0).</p></div>
+    <div class="box"><h3>Textures and docs</h3><p>CC0 PBR sets, 13 animated ad loops, and a README that explains every input.</p></div>
+  </div>
+
+  <p class="note">Scripts: GPL-3.0-or-later. Textures: CC0. Your renders are yours to use commercially.</p>
 </main>
 </body>
 </html>
