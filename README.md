@@ -20,7 +20,7 @@
 <p align="center">
   <a href="https://superhivemarket.com/products/cyber-city-generator"><b>Get it on Superhive</b></a>
   &nbsp;·&nbsp;
-  <a href="https://github.com/BlenderProcedural/cyber-city-generator/releases/download/trailer-v1/cyber_city_generator_promo.mp4"><b>Watch the trailer</b></a>
+  <a href="https://www.youtube.com/watch?v=4zOTrarYtss"><b>Watch the trailer</b></a>
   &nbsp;·&nbsp;
   <a href="https://blenderprocedural.github.io/cyber-city-generator/"><b>Product page</b></a>
 </p>
