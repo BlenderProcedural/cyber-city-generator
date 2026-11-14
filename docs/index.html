@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cyber City Generator</title>
+<meta name="description" content="Procedural cyberpunk skyscrapers and entire neon cities for Blender. One Geometry Nodes modifier per tower, or a whole city with one command.">
+<meta property="og:title" content="Cyber City Generator">
+<meta property="og:description" content="Procedural cyberpunk skyscrapers and entire neon cities for Blender.">
+<meta property="og:image" content="media/cover.webp">
+<style>
+  :root {
+    --bg: #07090d;
+    --panel: #0d1118;
+    --line: #1c2430;
+    --text: #e8edf5;
+    --muted: #93a0b4;
+    --cyan: #19e3ff;
+    --magenta: #ff2e88;
+    --amber: #ffb547;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--bg); color: var(--text); }
+  body { font: 16px/1.6 "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 16px 48px; }
+  img, video { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+  .hero { position: relative; margin-top: 16px; }
+  .hero img { border: 1px solid var(--line); }
+  .kicker { color: var(--cyan); letter-spacing: .22em; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+  h1 { font-size: clamp(30px, 6vw, 52px); line-height: 1.05; margin: 22px 0 8px; letter-spacing: .01em; }
+  h2 { font-size: clamp(22px, 3.6vw, 30px); margin: 0 0 6px; }
+  p { margin: 0 0 14px; color: var(--muted); }
+  .lead { font-size: 18px; color: var(--text); max-width: 720px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 8px; }
+  .btn { display: inline-block; padding: 11px 18px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 15px; }
+  .btn-primary { background: var(--cyan); color: #031015; }
+  .btn-ghost { border: 1px solid var(--line); color: var(--text); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
+  .chips li { border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: 13px; color: var(--muted); }
+  section { margin-top: 56px; }
+  .eyebrow { color: var(--cyan); font-family: Consolas, "SFMono-Regular", Menlo, monospace; font-size: 13px; letter-spacing: .12em; }
+  .media { margin-top: 16px; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #000; }
+  .media img, .media video { border-radius: 0; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 36px; }
+  .stat { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
+  .stat b { display: block; font-size: 28px; line-height: 1.1; color: var(--text); }
+  .stat span { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .grid2 img { border: 1px solid var(--line); }
+  .families { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
+  .fam { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; }
+  .fam b { display: block; color: var(--text); }
+  .fam span { font-size: 14px; color: var(--muted); }
+  ul.list { margin: 8px 0 0; padding-left: 20px; color: var(--muted); }
+  ul.list li { margin: 4px 0; }
+  ul.list b { color: var(--text); }
+  pre { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; overflow-x: auto;
+        color: var(--text); font: 13px/1.5 Consolas, "SFMono-Regular", Menlo, monospace; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .foot { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+  a { color: var(--cyan); }
+  @media (max-width: 640px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .grid2, .split { grid-template-columns: 1fr; }
+    .families { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <div class="hero">
+    <img src="media/cover.webp" alt="A lineup of procedural cyberpunk towers, mid-rises and shophouses in hazy daylight">
+  </div>
+
+  <div class="kicker" style="margin-top:22px">Blender · Geometry Nodes · Procedural</div>
+  <h1>Cyber City Generator</h1>
+  <p class="lead">Procedural cyberpunk skyscrapers and entire neon cities. Use one Geometry Nodes modifier per tower, or build a whole city with one command.</p>
+  <div class="cta">
+    <a class="btn btn-primary" href="https://superhivemarket.com/products/cyber-city-generator" target="_top">Get it on Superhive</a>
+    <a class="btn btn-ghost" href="https://github.com/BlenderProcedural/cyber-city-generator" target="_blank" rel="noopener">GitHub</a>
+  </div>
+  <ul class="chips">
+    <li>Blender 5.2+</li><li>Cycles &amp; Eevee</li><li>CC0 PBR textures</li><li>No text, no real brands</li><li>GPL source</li>
+  </ul>
+
+  <div class="stats">
+    <div class="stat"><b>6</b><span>Building families</span></div>
+    <div class="stat"><b>16</b><span>Shop types</span></div>
+    <div class="stat"><b>13</b><span>Animated ad loops</span></div>
+    <div class="stat"><b>4+</b><span>City layouts</span></div>
+  </div>
+
+  <section>
+    <div class="eyebrow">TRAILER</div>
+    <h2>72 seconds, from one tower to a whole city</h2>
+    <div class="media">
+      <video src="media/trailer.mp4" poster="media/cover_night.webp" controls playsinline preload="metadata"></video>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">01 · GENERATE</div>
+    <h2>One modifier, one tower</h2>
+    <p>Add the <b>BT Tower Generator</b> modifier to any mesh and a complete tower builds itself live. It includes the mass, setbacks and crown, facade bays and technical floors, glass, metal and concrete with grime, LED screens, neon pictogram signs, lit rooms, roof plant and street-level shops. Every input is a normal modifier field, so you can drag it, keyframe it or drive it.</p>
+    <div class="media"><img src="media/generate.gif" alt="A tower being generated step by step while the modifier panel values change" loading="lazy"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">02 · VARIATIONS</div>
+    <h2>Endless variations, fully deterministic</h2>
+    <p>There are separate seeds for the mass, facade, ads and lights. Keep a silhouette you like and re-roll only its lights or its screens. The same inputs always give the same building.</p>
+    <div class="media"><img src="media/variations.gif" alt="Seed shuffle: a new tower every few frames" loading="lazy"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">03 · FAMILIES</div>
+    <h2>Six building families</h2>
+    <div class="families">
+      <div class="fam"><b>Belt</b><span>LED belts and an ad wall</span></div>
+      <div class="fam"><b>Terrace</b><span>Cantilevered slabs with balconies</span></div>
+      <div class="fam"><b>Notched</b><span>Recessed corners and vertical screens</span></div>
+      <div class="fam"><b>Blocks</b><span>Towers rising from a shared podium</span></div>
+      <div class="fam"><b>Tech</b><span>Cylinders, polygon tiers and spires</span></div>
+      <div class="fam"><b>Shophouse</b><span>Low-rise street blocks</span></div>
+    </div>
+    <div class="media"><img src="media/families.gif" alt="Six building families turning on turntables" loading="lazy"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">04 · DAY / NIGHT</div>
+    <h2>Harsh sun and haze, or neon after dark</h2>
+    <p>Under a hazy afternoon sun the neon keeps burning. After dark the rooms light up floor by floor.</p>
+    <div class="media"><img src="media/day_night.gif" alt="A divider sweeps across the same tower from night to day" loading="lazy"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">05 · CITIES</div>
+    <h2>Whole cities with one command</h2>
+    <p>The city builder places hundreds of towers on a street grid. Pick one of four layouts (grid, downtown, strip, megablock) or set your own blocks, block size and street width. It adds sidewalks, lamps, neon shop totems, sign gantries with pictogram direction signs, traffic lights, cables, an elevated rail, skybridges, a reflective bay, a lit far city and searchlights. Every building stays a live modifier.</p>
+    <div class="media"><img src="media/layouts.gif" alt="City layout plan drawn as an infographic, then the rendered aerial" loading="lazy"></div>
+    <div class="media"><img src="media/city.gif" alt="Flythrough of the generated city" loading="lazy"></div>
+    <pre>blender -b --python build_city.py -- --layout downtown --seed 21 --save Downtown.blend</pre>
+  </section>
+
+  <section>
+    <div class="eyebrow">GALLERY</div>
+    <h2>Rendered in Cycles</h2>
+    <div class="grid2">
+      <img src="media/modifier_panel.webp" alt="The Geometry Nodes modifier panel next to a tower" loading="lazy">
+      <img src="media/build_materials.webp" alt="Material pass sweeping up a clay tower" loading="lazy">
+      <img src="media/families.webp" alt="Six families side by side" loading="lazy">
+      <img src="media/kit_daylight.webp" alt="Kit of towers, mid-rises and shophouses in daylight" loading="lazy">
+      <img src="media/layout_plan.webp" alt="Downtown layout plan" loading="lazy">
+      <img src="media/street_daylight.webp" alt="Street with shops and sign gantry in daylight" loading="lazy">
+      <img src="media/hero_tower_night.webp" alt="Hero tower with drones at night" loading="lazy">
+      <img src="media/cover_night.webp" alt="City aerial at night" loading="lazy">
+    </div>
+  </section>
+
+  <section class="split">
+    <div>
+      <div class="eyebrow">INCLUDED</div>
+      <h2>What you get</h2>
+      <ul class="list">
+        <li><b>CyberCityGenerator.blend:</b> the generator with a demo tower in a night studio. The modifier is also an asset in <i>Add Modifier &gt; Cyber City</i>, and the textures are embedded.</li>
+        <li><b>CyberCity_Demo.blend:</b> a prebuilt city of about 230 buildings, ready to render.</li>
+        <li><b>City builder and full Python source</b> (GPL-3.0).</li>
+        <li><b>CC0 textures:</b> ambientCG PBR sets and 13 animated pictogram ad loops.</li>
+        <li><b>README:</b> every input explained, with rendering tips.</li>
+      </ul>
+    </div>
+    <div>
+      <div class="eyebrow">REQUIREMENTS</div>
+      <h2>Runs on</h2>
+      <ul class="list">
+        <li>Blender 5.2 or newer (tested on 5.2 LTS).</li>
+        <li>Cycles (recommended) or Eevee.</li>
+        <li>A full-city aerial at 1080p fits in an 8 GB GPU with the towers' LOD Distance at about 400 m.</li>
+        <li>Signs use pictograms from the system symbol font, so there is no lettering anywhere.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="cta" style="margin-top:40px">
+    <a class="btn btn-primary" href="https://superhivemarket.com/products/cyber-city-generator" target="_top">Get Cyber City Generator</a>
+  </div>
+
+  <div class="foot">Scripts: GPL-3.0-or-later · Textures: CC0 · Your renders are yours to use commercially.</div>
+</main>
+</body>
+</html>
